@@ -13,7 +13,11 @@ struct MenuView: View {
             NavigationLink(destination: VoiceOverView()) {
                 Text("Voice Over")
             }
-        }
+            Spacer()
+            Button("A") {
+                
+            }
+        }.navigationTitle("Options")
     }
 }
 

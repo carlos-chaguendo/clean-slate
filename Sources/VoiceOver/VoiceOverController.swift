@@ -26,8 +26,6 @@ internal class VoiceOverController: ObservableObject {
         print(Bundle(path: "\(base)/VoiceOverServices.framework")?.load())
         print(Bundle(path: "\(base)/UIAccessibility.framework")?.load())
         print(Bundle(path: "\(base)/AccessibilityUtilities.framework")?.load())
-        
-        
     }
     
     func toggleVoiceOver() {
