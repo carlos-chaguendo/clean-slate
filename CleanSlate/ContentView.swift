@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var controller = VoiceOverViewModel()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Button("Voice Over", action: controller.toggleVoiceOver)
     }
 }
 
