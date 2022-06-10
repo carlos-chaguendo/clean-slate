@@ -9,7 +9,7 @@ import Dynamic
 import Foundation
 import UIKit
 
-internal class VoiceOverViewModel: ObservableObject {
+internal class VoiceOverController: ObservableObject {
     
     private(set) var isVoiceOverRunning = UIAccessibility.isVoiceOverRunning
     

@@ -11,7 +11,9 @@ import SwiftUI
 struct CleanSlateApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                MenuView()
+            }
         }
     }
 }

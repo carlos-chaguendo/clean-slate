@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  VoiceOverView.swift
 //  CleanSlate
 //
 //  Created by Carlos Andres Chaguendo Sanchez on 9/06/22.
@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    
-    @StateObject var controller = VoiceOverViewModel()
+struct VoiceOverView: View {
+    @StateObject var controller = VoiceOverController()
     
     var body: some View {
         Button("Voice Over", action: controller.toggleVoiceOver)

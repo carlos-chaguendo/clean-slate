@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		BA75F42E2852BD69004D6F58 /* CleanSlateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75F42D2852BD69004D6F58 /* CleanSlateApp.swift */; };
-		BA75F4302852BD69004D6F58 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75F42F2852BD69004D6F58 /* ContentView.swift */; };
+		BA75F4302852BD69004D6F58 /* VoiceOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75F42F2852BD69004D6F58 /* VoiceOverView.swift */; };
 		BA75F4322852BD6C004D6F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA75F4312852BD6C004D6F58 /* Assets.xcassets */; };
 		BA75F4352852BD6C004D6F58 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA75F4342852BD6C004D6F58 /* Preview Assets.xcassets */; };
 		BA8052E12852C07C00C0EAB1 /* Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = BA8052E02852C07C00C0EAB1 /* Dynamic */; };
-		BA8052E42852C0DC00C0EAB1 /* VoiceOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8052E32852C0DC00C0EAB1 /* VoiceOverViewModel.swift */; };
+		BA8052E42852C0DC00C0EAB1 /* VoiceOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8052E32852C0DC00C0EAB1 /* VoiceOverController.swift */; };
+		BA8052E62852C43800C0EAB1 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8052E52852C43800C0EAB1 /* MenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BA75F42A2852BD69004D6F58 /* CleanSlate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CleanSlate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA75F42D2852BD69004D6F58 /* CleanSlateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanSlateApp.swift; sourceTree = "<group>"; };
-		BA75F42F2852BD69004D6F58 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BA75F42F2852BD69004D6F58 /* VoiceOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceOverView.swift; sourceTree = "<group>"; };
 		BA75F4312852BD6C004D6F58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA75F4342852BD6C004D6F58 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		BA8052E32852C0DC00C0EAB1 /* VoiceOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceOverViewModel.swift; sourceTree = "<group>"; };
+		BA8052E32852C0DC00C0EAB1 /* VoiceOverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceOverController.swift; sourceTree = "<group>"; };
+		BA8052E52852C43800C0EAB1 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,11 +59,12 @@
 			children = (
 				BA8052E22852C09B00C0EAB1 /* VoiceOver */,
 				BA75F42D2852BD69004D6F58 /* CleanSlateApp.swift */,
-				BA75F42F2852BD69004D6F58 /* ContentView.swift */,
+				BA8052E52852C43800C0EAB1 /* MenuView.swift */,
 				BA75F4312852BD6C004D6F58 /* Assets.xcassets */,
 				BA75F4332852BD6C004D6F58 /* Preview Content */,
 			);
-			path = CleanSlate;
+			name = CleanSlate;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		BA75F4332852BD6C004D6F58 /* Preview Content */ = {
@@ -75,7 +78,8 @@
 		BA8052E22852C09B00C0EAB1 /* VoiceOver */ = {
 			isa = PBXGroup;
 			children = (
-				BA8052E32852C0DC00C0EAB1 /* VoiceOverViewModel.swift */,
+				BA75F42F2852BD69004D6F58 /* VoiceOverView.swift */,
+				BA8052E32852C0DC00C0EAB1 /* VoiceOverController.swift */,
 			);
 			path = VoiceOver;
 			sourceTree = "<group>";
@@ -156,8 +160,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA75F4302852BD69004D6F58 /* ContentView.swift in Sources */,
-				BA8052E42852C0DC00C0EAB1 /* VoiceOverViewModel.swift in Sources */,
+				BA75F4302852BD69004D6F58 /* VoiceOverView.swift in Sources */,
+				BA8052E62852C43800C0EAB1 /* MenuView.swift in Sources */,
+				BA8052E42852C0DC00C0EAB1 /* VoiceOverController.swift in Sources */,
 				BA75F42E2852BD69004D6F58 /* CleanSlateApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
