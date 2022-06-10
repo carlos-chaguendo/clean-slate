@@ -31,6 +31,10 @@ internal class VoiceOverController: ObservableObject {
     func toggleVoiceOver() {
         isVoiceOverRunning.toggle()
         Dynamic.AXSettings.sharedInstance.setVoiceOverEnabled(isVoiceOverRunning)
+        
+        Dynamic.VOSCommandManager().loadShortcuts
+        Dynamic.VOSCommandManager().allBuiltInCommands.asString
+        Dynamic.VOSCommandManager().activeProfile
     }
     
 }
