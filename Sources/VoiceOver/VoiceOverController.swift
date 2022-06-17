@@ -21,29 +21,28 @@ internal class VoiceOverController: ObservableObject {
             privateFrameworksPath = ""
             return
         }
-        
+
         let base = path.replacingOccurrences(of: "/UIKitCore.framework/Frameworks", with: "")
-        privateFrameworksPath = path
+        privateFrameworksPath = base
         
         loadPrivateFramework(named: "VoiceServices.framework")
         loadPrivateFramework(named: "VoiceOverServices.framework")
         loadPrivateFramework(named: "UIAccessibility.framework")
         loadPrivateFramework(named: "AccessibilityUtilities.framework")
     }
-    
+
     private func loadPrivateFramework(named name: String) {
         Bundle(path: "\(privateFrameworksPath)/\(name)")?.load()
     }
-    
+
     func toggleVoiceOver() {
         isVoiceOverRunning.toggle()
         Dynamic.AXSettings.sharedInstance.setVoiceOverEnabled(isVoiceOverRunning)
-        
+
         /// Enable keyboard control
         let _ = Dynamic.VOSCommandManager().loadShortcuts
         let _ = Dynamic.VOSCommandManager().allBuiltInCommands
         let _ = Dynamic.VOSCommandManager().activeProfile
-
     }
     
 }
