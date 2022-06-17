@@ -9,20 +9,19 @@ import SwiftUI
 
 struct MenuView: View {
     var body: some View {
-        VStack {
+        List{
             NavigationLink(destination: VoiceOverView()) {
-                Text("Voice Over")
+                Text("Accessibility")
             }
-            Spacer()
-            Button("A") {
-                
-            }
-        }.navigationTitle("Options")
+        }
+        .navigationTitle("Settings")
     }
 }
 
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView()
+        NavigationView {
+            MenuView()
+        }
     }
 }

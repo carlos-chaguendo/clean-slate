@@ -8,33 +8,42 @@
 import Dynamic
 import Foundation
 import UIKit
+import VisionKit
 
 internal class VoiceOverController: ObservableObject {
-    
-    private(set) var isVoiceOverRunning = UIAccessibility.isVoiceOverRunning
+    private let privateFrameworksPath: String
+    @Published var isVoiceOverRunning = UIAccessibility.isVoiceOverRunning
     
     internal init() {
         guard
             let clazz = NSClassFromString("UIView").self,
             let path = Bundle(for:  clazz).privateFrameworksPath else {
+            privateFrameworksPath = ""
             return
         }
         
         let base = path.replacingOccurrences(of: "/UIKitCore.framework/Frameworks", with: "")
-        print(base)
-        print(Bundle(path: "\(base)/VoiceServices.framework")?.load())
-        print(Bundle(path: "\(base)/VoiceOverServices.framework")?.load())
-        print(Bundle(path: "\(base)/UIAccessibility.framework")?.load())
-        print(Bundle(path: "\(base)/AccessibilityUtilities.framework")?.load())
+        privateFrameworksPath = path
+        
+        loadPrivateFramework(named: "VoiceServices.framework")
+        loadPrivateFramework(named: "VoiceOverServices.framework")
+        loadPrivateFramework(named: "UIAccessibility.framework")
+        loadPrivateFramework(named: "AccessibilityUtilities.framework")
+    }
+    
+    private func loadPrivateFramework(named name: String) {
+        Bundle(path: "\(privateFrameworksPath)/\(name)")?.load()
     }
     
     func toggleVoiceOver() {
         isVoiceOverRunning.toggle()
         Dynamic.AXSettings.sharedInstance.setVoiceOverEnabled(isVoiceOverRunning)
         
-        Dynamic.VOSCommandManager().loadShortcuts
-        Dynamic.VOSCommandManager().allBuiltInCommands.asString
-        Dynamic.VOSCommandManager().activeProfile
+        /// Enable keyboard control
+        let _ = Dynamic.VOSCommandManager().loadShortcuts
+        let _ = Dynamic.VOSCommandManager().allBuiltInCommands
+        let _ = Dynamic.VOSCommandManager().activeProfile
+
     }
     
 }

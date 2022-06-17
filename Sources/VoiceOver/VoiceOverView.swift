@@ -11,7 +11,11 @@ struct VoiceOverView: View {
     @StateObject var controller = VoiceOverController()
     
     var body: some View {
-        Button("Voice Over", action: controller.toggleVoiceOver)
+        List {
+            Toggle("VoiceOver", isOn: $controller.isVoiceOverRunning)
+        }.onChange(of: controller.isVoiceOverRunning) { newValue in
+            controller.toggleVoiceOver()
+        }.navigationTitle("VoiceOver")
     }
 }
 
