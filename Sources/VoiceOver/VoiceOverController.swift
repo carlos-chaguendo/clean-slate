@@ -9,10 +9,16 @@ import Dynamic
 import Foundation
 import UIKit
 import VisionKit
+import Combine
 
 internal class VoiceOverController: ObservableObject {
-    private let privateFrameworksPath: String
     @Published var isVoiceOverRunning = UIAccessibility.isVoiceOverRunning
+    @Published var isReduceMotionEnabled = UIAccessibility.isReduceMotionEnabled
+    @Published var isVoiceOverCaptionsEnabled = UIAccessibility.isClosedCaptioningEnabled
+    @Published var isInvertColorsEnabled = UIAccessibility.isInvertColorsEnabled
+    @Published var isOnOffSwitchLabelsEnabled = UIAccessibility.isOnOffSwitchLabelsEnabled
+    
+    private let privateFrameworksPath: String
     
     internal init() {
         guard
@@ -21,7 +27,7 @@ internal class VoiceOverController: ObservableObject {
             privateFrameworksPath = ""
             return
         }
-
+        
         let base = path.replacingOccurrences(of: "/UIKitCore.framework/Frameworks", with: "")
         privateFrameworksPath = base
         
@@ -43,6 +49,20 @@ internal class VoiceOverController: ObservableObject {
         let _ = Dynamic.VOSCommandManager().loadShortcuts
         let _ = Dynamic.VOSCommandManager().allBuiltInCommands
         let _ = Dynamic.VOSCommandManager().activeProfile
+    }
+    
+    func toggleVoiceOverCaptions() {
+        Dynamic.AXSettings.sharedInstance.setVoiceOverSceneDescriptionsEnabled(isVoiceOverCaptionsEnabled)
+        Dynamic.AXSettings.sharedInstance.setEnableVoiceOverCaptions(isVoiceOverCaptionsEnabled)
+    }
+    
+    func toggleReduceMotion() {
+        Dynamic.AXSettings.sharedInstance.setReduceMotionEnabled(isReduceMotionEnabled)
+    }
+    
+    func toggleInvertColors() {
+        Dynamic.AXSettings.sharedInstance.setClassicInvertColors(isInvertColorsEnabled)
+        Dynamic.AXSettings.sharedInstance.setLastSmartInvertColorsEnablement(isInvertColorsEnabled)
     }
     
 }
