@@ -35,25 +35,49 @@ internal class VoiceOverController: ObservableObject {
         loadPrivateFramework(named: "VoiceOverServices.framework")
         loadPrivateFramework(named: "UIAccessibility.framework")
         loadPrivateFramework(named: "AccessibilityUtilities.framework")
+        loadPrivateFramework(named: "TipKit.framework")
+        
+        // Progresive testing
+        let settings = Settings()
+        Reference(value: settings)
+            .name("Carlos")
+            .size(.small)
+        
     }
 
     private func loadPrivateFramework(named name: String) {
         Bundle(path: "\(privateFrameworksPath)/\(name)")?.load()
     }
+    
+    @objc
+    func setVoiceOverEnabled(_ arg1: Bool) {
+    }
 
     func toggleVoiceOver() {
-        isVoiceOverRunning.toggle()
-        Dynamic.AXSettings.sharedInstance.setVoiceOverEnabled(isVoiceOverRunning)
+        guard
+            let clazz = NSClassFromString("AXSettings") as? NSObject.Type,
+            let settings = clazz.value(forKey: "sharedInstance") as? NSObject else {
+            return
+        }
+        
+        settings.setValue(isVoiceOverRunning, forKey: "voiceOverEnabled")
+      
+        
+        #if canImport(Dynamic)
+        //Dynamic.AXSettings.sharedInstance.setVoiceOverEnabled(isVoiceOverRunning)
+        #else
+        
+        #endif
 
         /// Enable keyboard control
-        let _ = Dynamic.VOSCommandManager().loadShortcuts
-        let _ = Dynamic.VOSCommandManager().allBuiltInCommands
-        let _ = Dynamic.VOSCommandManager().activeProfile
+        //let _ = Dynamic.VOSCommandManager().loadShortcuts
+        //let _ = Dynamic.VOSCommandManager().allBuiltInCommands
+        //let _ = Dynamic.VOSCommandManager().activeProfile
     }
     
     func toggleVoiceOverCaptions() {
-        Dynamic.AXSettings.sharedInstance.setVoiceOverSceneDescriptionsEnabled(isVoiceOverCaptionsEnabled)
-        Dynamic.AXSettings.sharedInstance.setEnableVoiceOverCaptions(isVoiceOverCaptionsEnabled)
+        //Dynamic.AXSettings.sharedInstance.setVoiceOverSceneDescriptionsEnabled(isVoiceOverCaptionsEnabled)
+//        Dynamic.AXSettings.sharedInstance.setEnableVoiceOverCaptions(isVoiceOverCaptionsEnabled)
     }
     
     func toggleReduceMotion() {
@@ -65,5 +89,60 @@ internal class VoiceOverController: ObservableObject {
         Dynamic.AXSettings.sharedInstance.setLastSmartInvertColorsEnablement(isInvertColorsEnabled)
     }
     
+    private func describeInOrder(_ object: [String: Any]) {
+        let dictionary = object.sorted { $0.key > $1.key}
+        for element in dictionary {
+            print("\(element.key):", element.value )
+        }
+        
+  
+        
+    }
+    
+}
+
+class Settings {
+    
+    enum Size {
+        case small
+        case large
+    }
+    
+    var name: String = ""
+    var size: Size = .small
+    
+}
+
+@dynamicCallable
+class Setter<Object, Value> {
+    let action: (Value) -> Void
+    let returnValue: Object
+    
+    init(_ object: Object, _ action: @escaping (Value) -> Void) {
+        self.action = action
+        self.returnValue = object
+    }
+    
+    func dynamicallyCall(withArguments args: [Value]) -> Object {
+        action(args.first!)
+        return returnValue
+    }
+    
+}
+
+@dynamicMemberLookup
+class Reference<Value> {
+    private(set) var value: Value
+
+    init(value: Value) {
+        self.value = value
+    }
+
+    subscript<T>(dynamicMember keyPath: WritableKeyPath<Value, T>) -> Setter<Reference<Value>, T>  {
+        print("Dinamic menber", keyPath)
+       return Setter(self) { newValue in
+            self.value[keyPath: keyPath] = newValue
+        }
+    }
 }
 
